@@ -7,8 +7,11 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
   },
 });
 
-module.exports = stylelint.createPlugin(ruleName, function() {
+module.exports = stylelint.createPlugin(ruleName, function(use) {
   return function(postcssRoot, postcssResult) {
+    if(!use) {
+      return;
+    }
     const validOptions = stylelint.utils.validateOptions(postcssResult, ruleName);
     if (!validOptions) { return; };
 
